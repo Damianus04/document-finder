@@ -1,1 +1,8 @@
-web: gunicorn app:app
+flask
+flask_bootstrap
+scikit-learn==0.22
+jcopml
+pandas
+numpy
+nltk
+gunicorn==20.0.4
