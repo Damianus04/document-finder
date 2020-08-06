@@ -3,12 +3,10 @@ from flask_bootstrap import Bootstrap
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from string import punctuation
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_distances
 
-sw = stopwords.words('indonesian') + \
-    stopwords.words('english') + list(punctuation)
+sw = stopwords.words('indonesian') + stopwords.words('english')
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
