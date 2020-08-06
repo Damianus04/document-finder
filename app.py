@@ -1,7 +1,6 @@
 from flask import Flask, render_template, url_for, request
 from flask_bootstrap import Bootstrap
 import pandas as pd
-from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_distances
 
@@ -979,7 +978,7 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 df = pd.read_csv("data/bank_central_asia_news.csv", encoding='iso-8859-1')
 tfidf = TfidfVectorizer(ngram_range=(
-    1, 2), tokenizer=word_tokenize, stop_words=sw)
+    1, 2), stop_words=sw)
 tfidf_matrix = tfidf.fit_transform(df['Hit Sentence'].values.astype('U'))
 
 
