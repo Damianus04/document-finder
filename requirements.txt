@@ -1,8 +1,11 @@
 flask
 flask_bootstrap
+flask_moment
+flask_wtf
 scikit-learn==0.22
 jcopml
 pandas
 numpy
 nltk
 gunicorn==20.0.4
+string
