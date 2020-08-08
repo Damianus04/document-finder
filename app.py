@@ -984,11 +984,16 @@ tfidf_matrix = tfidf.fit_transform(df['Hit Sentence'].values.astype('U'))
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 
-@app.route("/result", methods=['POST'])
-def result():
+@app.route("/app_df_home", methods=["GET", 'POST'])
+def app_df_home():
+    return render_template('app_df_home.html')
+
+
+@app.route("/app_df_result", methods=['POST'])
+def app_df_result():
     if request.method == "POST":
         query = request.form['text']
         # find the most similar document
@@ -998,4 +1003,5 @@ def result():
         result_list = result_series.tolist()
         result = df['Hit Sentence'][result_list]
         document_list = result.tolist()
-    return render_template('result.html', document_list=document_list)
+    return render_template('app_df_result.html', document_list=document_list)
+# the key to call other page or action/prediction is the function that is put on a href="function" or action="function"
