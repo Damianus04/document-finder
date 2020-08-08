@@ -1,13 +1,11 @@
 {% extends "base.html" %} {% block title %} Spam Detector {% endblock %} {%
 block page_content%}
 
-<div class="container">
-  <h3 class="display-1 text-center">
-    <b>RESULTS</b>
-  </h3>
+<div class="page-header text-center">
+  <h1>Sentiment</h1>
 </div>
 
-<div class="container text-center">
+<div class="container text-center" style="margin-bottom: 80px;">
   {% if prediction == 1 %}
   <h2 style="color: red;">Spam</h2>
   {% elif prediction == 0 %}

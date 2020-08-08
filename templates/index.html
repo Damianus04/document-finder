@@ -4,18 +4,28 @@
 <!-- Title -->
 {% block title %} MLAPPS HOME {% endblock %}
 
-<!-- Index Content -->
+<!-- Jumbotron -->
 {% block page_content %}
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">
-    This is a collection of machine learning mini projects application. If you
-    want to try them, please select on the menu tab "Application"
-  </p>
-  <hr class="my-4" />
-  <p>
-    Have a nice try
-  </p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<div
+  class="jumbotron jumbotron-fluid"
+  style="
+    background-image: url(../static/img/nature.jpg);
+    background-size: cover;
+    height: 540px;
+    text-align: center;
+    position: relative;
+  "
+>
+  <div class="container text-center">
+    <h1 class="display-4">
+      Hello, <span>World!</span><br />
+      Welcome to <span>MLAPPS</span>
+    </h1>
+    <p class="lead" style="color: azure;">
+      Try some applications which can check sentiment, spam, find old documents,
+      etc
+    </p>
+    <hr class="my-4" />
+  </div>
 </div>
 {% endblock %}

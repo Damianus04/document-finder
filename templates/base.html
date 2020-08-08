@@ -16,6 +16,9 @@
       crossorigin="anonymous"
     />
 
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../static/styles.css" />
+
     {% if title %}
     <title>{{ title }} - MLAPPS</title>
     {% else %}
@@ -24,73 +27,79 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">MLAPPS</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-dark position-relative"
+      style="margin-bottom: 20px; z-index: 1; margin-bottom: 50px;"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/">MLAPPS</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Applications
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item sc" href="{{ url_for('app_sc_home')}}"
-                >Sentiment Checker</a
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/"
+                >Home <span class="sr-only">(current)</span></a
               >
-              <a class="dropdown-item sd" href="{{ url_for('app_sd_home')}}"
-                >Spam Detector</a
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Blog</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-              <a class="dropdown-item df" href="{{ url_for('app_df_home')}}"
-                >Document Finder</a
-              >
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
+                Applications
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item sc" href="{{ url_for('app_sc_home')}}"
+                  >Sentiment Checker</a
+                >
+                <a class="dropdown-item sd" href="{{ url_for('app_sd_home')}}"
+                  >Spam Detector</a
+                >
+                <a class="dropdown-item df" href="{{ url_for('app_df_home')}}"
+                  >Document Finder</a
+                >
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
       </div>
     </nav>
+    <!-- end Navbar -->
 
     <!-- Content Loader -->
     {% block content %}
@@ -98,6 +107,83 @@
       {% block page_content %}{% endblock %}
     </div>
     {% endblock %}
+
+    <!-- Info Panel -->
+    <div class="row justify-content-center">
+      <div
+        class="col-10 info-panel"
+        style="
+          margin-top: -32px;
+          box-shadow: 0 3px 20px rgba(0, 0, 0, 0.5);
+          border-radius: 12px;
+          background-color: white;
+          padding: 30px;
+        "
+      >
+        <div class="row">
+          <div class="col-lg">
+            <img
+              src="../static/img/sentiment.png"
+              alt="employee"
+              class="float-left rounded-circle"
+              style="
+                height: 80px;
+                width: 80px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+              "
+            />
+            <h3>
+              <a href="{{ url_for('app_sc_home')}}" class="badge badge-light"
+                >Sentiment Checker</a
+              >
+            </h3>
+            <p>Find out the sentiment of the text or word that you input</p>
+          </div>
+          <div class="col-lg">
+            <img
+              src="../static/img/document.png"
+              alt="employee"
+              class="float-left rounded-circle"
+              style="
+                height: 80px;
+                width: 80px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+              "
+            />
+            <h3>
+              <a href="{{ url_for('app_df_home')}}" class="badge badge-light"
+                >Document Finder</a
+              >
+            </h3>
+            <p>
+              Check whether a text is spam or not. Just copy any text and check.
+            </p>
+          </div>
+          <div class="col-lg">
+            <img
+              src="../static/img/spam.png"
+              alt="employee"
+              class="float-left rounded-circle"
+              style="
+                height: 80px;
+                width: 80px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+              "
+            />
+            <h3>
+              <a href="{{ url_for('app_sd_home')}}" class="badge badge-light"
+                >Spam Detector</a
+              >
+            </h3>
+            <p>Find the most similar document based on what you type</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end Info Panel -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

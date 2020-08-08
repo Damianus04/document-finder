@@ -5,14 +5,14 @@ block page_content %}
   <h1>Check Document</h1>
 </div>
 
-<div class="container text-center">
+<div class="container text-center" style="margin-bottom: 80px;">
   <form action="{{ url_for('app_df_result')}}" method="POST">
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Enter Text Here</label>
       <textarea name="text" class="form-control" id="text" rows="3"></textarea>
       <input
         type="submit"
-        class="btn btn-light input-keyword"
+        class="btn btn-primary input-keyword"
         value="Find Similar Document"
       />
     </div>
