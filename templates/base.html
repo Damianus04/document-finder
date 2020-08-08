@@ -23,6 +23,7 @@
     {% endif %}
   </head>
   <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">MLAPPS</a>
       <button
@@ -60,8 +61,12 @@
               Applications
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item sc" href="#">Sentiment Checker</a>
-              <a class="dropdown-item sd" href="#">Spam Detector</a>
+              <a class="dropdown-item sc" href="{{ url_for('app_sc_home')}}"
+                >Sentiment Checker</a
+              >
+              <a class="dropdown-item sd" href="{{ url_for('app_sd_home')}}"
+                >Spam Detector</a
+              >
               <a class="dropdown-item df" href="{{ url_for('app_df_home')}}"
                 >Document Finder</a
               >

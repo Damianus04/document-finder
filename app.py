@@ -1,9 +1,72 @@
 from flask import Flask, render_template, url_for, request
-from flask_bootstrap import Bootstrap
+
+# sentiment checker
+import pandas as pd
+from sklearn.linear_model import SGDClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# document finder
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_distances
 
+# spam detector
+import pandas as pd
+import pickle
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.externals import joblib
+
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def home():
+    return render_template('index.html')
+
+
+# ***************************************************************************
+# SENTIMENT CHECKER
+@app.route("/app_sc_home", methods=["GET", 'POST'])
+def app_sc_home():
+    return render_template('app_sc_home.html')
+
+
+@app.route("/app_sc_result", methods=["GET", 'POST'])
+def app_sc_result():
+    # NOT USING PIPELINE
+    df = pd.read_csv("data/sentiment_data.csv", encoding="ISO-8859-1")
+    df_data = df[["Isi_Tweet", "Sentimen"]]
+
+    # dataset splitting
+
+    X = df_data["Isi_Tweet"]
+    y = df_data["Sentimen"]
+
+    cv = TfidfVectorizer()
+    X = cv.fit_transform(X)
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, stratify=y, random_state=42)
+
+    # training
+    clf = SGDClassifier(tol=0.0003, loss='modified_huber',
+                        penalty='l2', alpha=0.0002, random_state=42, max_iter=5)
+    clf.fit(X_train, y_train)
+
+    # return render_template
+    if request.method == "POST":
+        text = request.form['text']
+        data = [text]
+        data = cv.transform(data).toarray()
+        pred = clf.predict(data)
+    return render_template('app_sc_result.html', prediction=pred)
+# ***************************************************************************
+
+
+# DOCUMENT FINDER
 sw = ['ada',
       'adalah',
       'adanya',
@@ -974,17 +1037,10 @@ sw = ['ada',
       '}',
       '~']
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
 df = pd.read_csv("data/bank_central_asia_news.csv", encoding='iso-8859-1')
 tfidf = TfidfVectorizer(ngram_range=(
     1, 2), stop_words=sw)
 tfidf_matrix = tfidf.fit_transform(df['Hit Sentence'].values.astype('U'))
-
-
-@app.route("/")
-def home():
-    return render_template('index.html')
 
 
 @app.route("/app_df_home", methods=["GET", 'POST'])
@@ -1005,3 +1061,39 @@ def app_df_result():
         document_list = result.tolist()
     return render_template('app_df_result.html', document_list=document_list)
 # the key to call other page or action/prediction is the function that is put on a href="function" or action="function"
+# ***************************************************************************
+
+# SPAM DETECTOR
+@app.route('/app_sd_home', methods=["GET", 'POST'])
+def app_sd_home():
+    return render_template('app_sd_home.html')
+
+
+@app.route('/app_sd_result', methods=['POST'])
+def app_sd_result():
+    df = pd.read_csv("data/YoutubeSpamMergeddata.csv", encoding='ISO-8859-1')
+    df_data = df[["CONTENT", "CLASS"]]
+    # Features and Labels
+    df_x = df_data['CONTENT']
+    df_y = df_data.CLASS
+# Extract Feature With CountVectorizer
+    corpus = df_x
+    cv = CountVectorizer()
+    X = cv.fit_transform(corpus)  # Fit the Data
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, df_y, test_size=0.33, random_state=42)
+    # Naive Bayes Classifier
+    clf = MultinomialNB()
+    clf.fit(X_train, y_train)
+    clf.score(X_test, y_test)
+    # Alternative Usage of Saved Model
+    # ytb_model = open("naivebayes_spam_model.pkl","rb")
+    # clf = joblib.load(ytb_model)
+
+    if request.method == 'POST':
+        comment = request.form['comment']
+        data = [comment]
+        vect = cv.transform(data).toarray()
+        my_prediction = clf.predict(vect)
+    return render_template('app_sd_result.html', prediction=my_prediction)

@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %} Spam Detector {% endblock %} {%
+block page_content%}
+
+<div class="page-header text-center">
+  <h1>Spam Detector</h1>
+</div>
+
+<div class="container text-center">
+  <form action="{{ url_for('app_sd_result')}}" method="POST">
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Enter Text Here</label>
+      <textarea
+        name="comment"
+        class="form-control"
+        id="text"
+        rows="3"
+      ></textarea>
+      <input
+        type="submit"
+        class="btn btn-primary input-keyword"
+        value="Check Spam"
+      />
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+<!-- <div class="ml-container container text-center">
+  <form action="{{ url_for('predict')}}" method="POST">
+    <p>Enter your comment here</p>
+    <textarea name="comment" cols="50" rows="10"></textarea>
+    <br />
+    <input type="Submit" class="btn-info" value="predict" />
+  </form>
+</div> -->
